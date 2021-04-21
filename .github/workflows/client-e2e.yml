@@ -1,0 +1,38 @@
+# Workflow for running E2E tests when client code is pushed to the main branch.
+
+name: Client Merge Tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+
+jobs:
+  # Run E2E tests on different browsers and screen sizes. The screen sizes
+  # correspond to devices that match the napari hub breakpoint system. Check
+  # out `jest/e2e.config.js` to see the device mapping.
+  e2e:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+        device: [xs, sm, md, lg, xl, 2xl, 3xl]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+
+      - name: Install dependencies with yarn
+        run: yarn install
+
+      - name: Run E2E Tests for ${{ browser }} on ${{ device }} screens
+        env:
+          BROWSER: ${{ browser }}
+          DEVICE: ${{ device }}
+        run: yarn e2e

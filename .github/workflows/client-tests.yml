@@ -1,0 +1,58 @@
+# Workflow that runs several tests on pushes to the main branch, or for a PR
+# with changes to the `client/` directory.
+
+name: Client Tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+  pull_request:
+    branches:
+      - '**'
+    paths:
+      - 'client/**'
+
+defaults:
+  run:
+    working-directory: client/
+
+jobs:
+  # Run linters on source code. This currently includes: eslint, prettier, and
+  # stylelint.
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+
+      - name: Install dependencies with yarn
+        run: yarn install
+
+      - name: Linters
+        run: yarn lint
+
+  # Run Jest unit and integration tests.
+  tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 15.x
+
+      - name: Install dependencies with yarn
+        run: yarn install
+
+      - name: Jest Tests
+        run: yarn test
