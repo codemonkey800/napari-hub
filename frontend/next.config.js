@@ -19,7 +19,34 @@ const withMDX = mdx({
   },
 });
 
+const isPreview = !!process.env.PREVIEW_PLUGIN;
+
+const previewOptions = isPreview
+  ? {
+      // The Image API doesn't work for exported apps, so we need to use a
+      // different image loader to supplement it. The workaround is to use imgix
+      // with a root path for Next.js v10: https://git.io/J0k6G. For v11, a new
+      // `custom` loader was added to support this behavior directly:
+      // https://git.io/J0k6R
+      // TODO Refactor to use `custom` loader when Next.js is upgraded to v11
+      images: {
+        loader: 'imgix',
+        path: '/',
+      },
+
+      // Override default pages being exported to be only the preview page:
+      // https://stackoverflow.com/a/64071979
+      exportPathMap() {
+        return {
+          '/preview': { page: '/preview' },
+        };
+      },
+    }
+  : {};
+
 module.exports = withMDX({
+  ...previewOptions,
+
   pageExtensions: ['ts', 'tsx', 'mdx'],
 
   // Enable webpack 5 support for faster builds :)
