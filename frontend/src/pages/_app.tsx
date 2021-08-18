@@ -19,9 +19,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Hydrate } from 'react-query/hydration';
 
-import { Layout } from '@/components';
 import { PageMetadata } from '@/components/common';
 import { MediaContextProvider } from '@/components/common/media';
+import { Layout } from '@/components/Layout';
 import { LoadingStateProvider } from '@/context/loading';
 import { PROD } from '@/env';
 import { usePageTransitions } from '@/hooks';
