@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 
-import { ColumnLayout, Markdown, SkeletonLoader } from '@/components/common';
+import { ColumnLayout } from '@/components/common/ColumnLayout';
+import { Markdown } from '@/components/common/Markdown';
 import { Media, MediaFragment } from '@/components/common/media';
+import { SkeletonLoader } from '@/components/common/SkeletonLoader';
 import { usePluginState } from '@/context/plugin';
 import { usePlausible } from '@/hooks';
 

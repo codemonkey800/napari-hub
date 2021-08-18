@@ -8,8 +8,9 @@ import {
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
-import { Accordion, SkeletonLoader } from '@/components/common';
+import { Accordion } from '@/components/common/Accordion';
 import { Media, MediaFragment } from '@/components/common/media';
+import { SkeletonLoader } from '@/components/common/SkeletonLoader';
 import { SearchSortType, useSearchState } from '@/context/search';
 
 const DEFAULT_SORT_BY_RADIO_ORDER: SearchSortType[] = [

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { Link } from '@/components/common';
+import { Link } from '@/components/common/Link';
 import { useSearchState } from '@/context/search';
 import { LinkInfo } from '@/types';
 import { setSearchScrollY } from '@/utils';

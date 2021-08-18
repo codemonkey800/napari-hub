@@ -1,7 +1,8 @@
 import { FormLabel } from '@material-ui/core';
 
-import { Accordion, SkeletonLoader } from '@/components/common';
+import { Accordion } from '@/components/common/Accordion';
 import { Media } from '@/components/common/media';
+import { SkeletonLoader } from '@/components/common/SkeletonLoader';
 import { useSearchState } from '@/context/search';
 
 import { PluginFilterBySection } from './PluginFilterBySection';

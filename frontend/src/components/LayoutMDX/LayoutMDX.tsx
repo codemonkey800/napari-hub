@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
 
-import { ColumnLayout, TableOfContents, TOCHeader } from '@/components/common';
+import { ColumnLayout } from '@/components/common/ColumnLayout';
 import { Media } from '@/components/common/media';
+import {
+  TableOfContents,
+  TOCHeader,
+} from '@/components/common/TableOfContents';
 
 import { useHeaders } from './LayoutMDX.hooks';
 

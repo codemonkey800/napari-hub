@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import { ColumnLayout } from '@/components/common';
+import { ColumnLayout } from '@/components/common/ColumnLayout';
 import { Menu } from '@/components/common/icons';
 import { Media } from '@/components/common/media';
 import { MenuDrawer } from '@/components/MenuDrawer';

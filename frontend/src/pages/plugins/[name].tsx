@@ -7,7 +7,8 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'node:querystring';
 
 import { hubAPI } from '@/axios';
-import { ErrorMessage, PageMetadata } from '@/components/common';
+import { ErrorMessage } from '@/components/common/ErrorMessage';
+import { PageMetadata } from '@/components/common/PageMetadata';
 import { PluginDetails } from '@/components/PluginDetails';
 import { PluginStateProvider } from '@/context/plugin';
 import { PluginData, PluginRepoData, PluginRepoFetchError } from '@/types';

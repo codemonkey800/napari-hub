@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import { isEmpty } from 'lodash';
 
-import { Link, SkeletonLoader, TextHighlighter } from '@/components/common';
+import { Link } from '@/components/common/Link';
+import { SkeletonLoader } from '@/components/common/SkeletonLoader';
+import { TextHighlighter } from '@/components/common/TextHighlighter';
 import { useLoadingState } from '@/context/loading';
 import { SearchResultMatch } from '@/context/search';
 import { PluginIndexData } from '@/types';

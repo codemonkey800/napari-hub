@@ -1,5 +1,5 @@
 import { AppBarLanding } from '@/components/AppBar';
-import { ColumnLayout } from '@/components/common';
+import { ColumnLayout } from '@/components/common/ColumnLayout';
 import { Footer } from '@/components/Footer';
 import { SignupForm } from '@/components/SignupForm';
 

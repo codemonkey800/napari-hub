@@ -1,7 +1,8 @@
 import clsx from 'clsx';
 import { isEmpty } from 'lodash';
 
-import { ColumnLayout, SkeletonLoader } from '@/components/common';
+import { ColumnLayout } from '@/components/common/ColumnLayout';
+import { SkeletonLoader } from '@/components/common/SkeletonLoader';
 import { useLoadingState } from '@/context/loading';
 import { SearchResult, useSearchState } from '@/context/search';
 import { PluginIndexData } from '@/types';
