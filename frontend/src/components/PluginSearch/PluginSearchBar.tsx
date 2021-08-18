@@ -1,5 +1,5 @@
-import { SearchBar } from '@/components';
 import { ColumnLayout, SkeletonLoader } from '@/components/common';
+import { SearchBar } from '@/components/SearchBar';
 import { SEARCH_BAR_ID } from '@/constants/search';
 
 /**

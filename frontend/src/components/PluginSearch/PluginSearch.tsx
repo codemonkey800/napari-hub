@@ -1,6 +1,7 @@
-import { Footer, SignupForm } from '@/components';
 import { AppBarLanding } from '@/components/AppBar';
 import { ColumnLayout } from '@/components/common';
+import { Footer } from '@/components/Footer';
+import { SignupForm } from '@/components/SignupForm';
 
 import { PluginSearchBar } from './PluginSearchBar';
 import { PluginSearchControls } from './PluginSearchControls';
