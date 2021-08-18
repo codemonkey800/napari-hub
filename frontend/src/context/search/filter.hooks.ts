@@ -79,10 +79,10 @@ function useForm() {
   }
 
   // Update the filter query parameter with the filtered state
-  useEffect(() => setFilterParam(filterFalsyValues(state)), [
-    setFilterParam,
-    state,
-  ]);
+  useEffect(
+    () => setFilterParam(filterFalsyValues(state)),
+    [setFilterParam, state],
+  );
 
   /**
    * Removes a chip from the chips state.
@@ -111,7 +111,7 @@ function useForm() {
    */
   function getCheckboxSetter<
     K extends keyof FilterFormState,
-    S extends FilterFormState[K]
+    S extends FilterFormState[K],
   >(key: K) {
     return (nextState: Partial<S>): void => {
       setState((prevState) => ({

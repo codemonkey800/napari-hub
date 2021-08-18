@@ -29,9 +29,9 @@ describe('Plugin filter-by section', () => {
 
     expect(filterCheckboxes).toHaveLength(filters.length);
 
-    (zip(filters, filterCheckboxes) as Array<
-      [FilterItem, HTMLElement]
-    >).forEach(([filter, input]) => {
+    (
+      zip(filters, filterCheckboxes) as Array<[FilterItem, HTMLElement]>
+    ).forEach(([filter, input]) => {
       expect(input.lastElementChild?.innerHTML).toBe(filter.label);
       expect(input.querySelector('input')?.checked).toBe(filter.enabled);
     });
@@ -59,9 +59,9 @@ describe('Plugin filter-by section', () => {
 
     expect(filterCheckboxes).toHaveLength(filters.length);
 
-    (zip(filters, filterCheckboxes) as Array<
-      [FilterItem, HTMLElement]
-    >).forEach(([filter, input]) => {
+    (
+      zip(filters, filterCheckboxes) as Array<[FilterItem, HTMLElement]>
+    ).forEach(([filter, input]) => {
       const checkbox = input.querySelector('input');
       expect(checkbox).not.toBeUndefined();
       fireEvent.click(checkbox as HTMLElement);

@@ -23,7 +23,8 @@ interface SitemapEntry {
   lastmod?: string;
 }
 
-const HUB_URL_IGNORE_REGEX = /\/(_app|_error|next|sitemap.xml|robots.txt|plugins\/\[name\])/;
+const HUB_URL_IGNORE_REGEX =
+  /\/(_app|_error|next|sitemap.xml|robots.txt|plugins\/\[name\])/;
 
 /**
  * @returns a list of non-plugin page hub sitemap entries.
