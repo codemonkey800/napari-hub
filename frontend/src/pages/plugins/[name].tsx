@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ParsedUrlQuery } from 'node:querystring';
+import { ParsedUrlQuery } from 'querystring';
 
 import { hubAPI } from '@/axios';
 import { ErrorMessage } from '@/components/common/ErrorMessage';
