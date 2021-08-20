@@ -20,3 +20,8 @@ rules:
     - ignore:
         - blockless-at-rules
         - pseudo-classes
+
+  at-rule-no-unknown:
+    - true
+    - ignoreAtRules:
+        - /function|each|use|return/

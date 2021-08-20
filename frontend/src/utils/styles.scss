@@ -1,4 +1,4 @@
-/* stylelint-disable at-rule-no-unknown */
+@use "sass:math";
 
 $min-content: strip(theme('screens.screen-300'));
 
@@ -9,7 +9,7 @@ $min-content: strip(theme('screens.screen-300'));
 @function viewport-clamp($min-value, $max-value) {
   $value: clamp(
     #{$min-value},
-    calc(strip(#{$min-value}) / #{$min-content} * 100vw),
+    calc(#{math.div(strip(#{$min-value}), #{$min-content})} * 100vw),
     #{$max-value}
   );
 
@@ -22,5 +22,5 @@ $min-content: strip(theme('screens.screen-300'));
  * https://stackoverflow.com/a/29512572
  */
 @function calculate-rem($value, $base-font-size: 16px) {
-  @return ($value / $base-font-size) * 1rem;
+  @return math.div($value, $base-font-size) * 1rem;
 }

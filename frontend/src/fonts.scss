@@ -22,7 +22,6 @@ $fonts: (
   ),
 );
 
-/* stylelint-disable-next-line at-rule-no-unknown */
 @each $name, $font in $fonts {
   $url: '/fonts/barlow-v5-latin-#{map-get($font, "name")}.woff2';
 
