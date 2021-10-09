@@ -35,7 +35,7 @@ const previewOptions =
         // TODO Refactor to use `custom` loader when Next.js is upgraded to v11
         images: {
           loader: 'imgix',
-          path: '/',
+          path: process.env.BASE_PATH || '',
         },
 
         // Override default pages being exported to be only the preview page:
@@ -55,6 +55,7 @@ if (PROD && PREVIEW) {
 module.exports = withMDX({
   ...previewOptions,
 
+  basePath: process.env.BASE_PATH || '',
   pageExtensions: ['ts', 'tsx', 'mdx'],
 
   // Enable webpack 5 support for faster builds :)
@@ -74,6 +75,8 @@ module.exports = withMDX({
 
     config.plugins.push(
       new EnvironmentPlugin({
+        BASE_PATH: '',
+
         // Path to JSON file that has the same structure as the backend's plugin
         // response data. When this is defined, the UI will switch into preview
         // mode and render the /preview page with the data in this JSON file.
