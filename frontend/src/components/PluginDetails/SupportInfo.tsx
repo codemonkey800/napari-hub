@@ -64,13 +64,16 @@ export function SupportInfoBase({
   const items: MetadataItem[] = [
     {
       title: 'Authors',
-      value: plugin.authors.map((author) => author.name),
+      value:
+        plugin?.authors
+          ?.map((author) => author.name)
+          .filter((name): name is string => !!name) ?? [],
     },
 
     {
       title: 'Learn more',
       value: ([] as MetadataItemLink[]).concat(
-        plugin.project_site
+        plugin?.project_site
           ? {
               href: plugin.project_site,
               icon: <ProjectSite />,
@@ -79,7 +82,7 @@ export function SupportInfoBase({
           : [],
 
         {
-          href: plugin.documentation,
+          href: plugin?.documentation ?? '',
           icon: <ProjectDocumentation />,
           missingIcon: (
             <ProjectDocumentation className={styles.missingDocumentation} />
@@ -87,7 +90,7 @@ export function SupportInfoBase({
           text: 'Documentation',
         },
         {
-          href: plugin.support,
+          href: plugin?.support ?? '',
           icon: <ProjectSupport />,
           missingIcon: (
             <ProjectSupport className={styles.missingProjectSupport} />
@@ -95,7 +98,7 @@ export function SupportInfoBase({
           text: 'Support',
         },
         {
-          href: plugin.report_issues,
+          href: plugin?.report_issues ?? '',
           icon: <ProjectIssues />,
           missingIcon: (
             <ProjectIssues className={styles.missingProjectIssues} />
@@ -103,7 +106,7 @@ export function SupportInfoBase({
           text: 'Report issues',
         },
 
-        plugin.twitter
+        plugin?.twitter
           ? {
               href: plugin.twitter,
               icon: <Twitter />,
@@ -115,11 +118,14 @@ export function SupportInfoBase({
 
     {
       title: 'Source code',
-      value: plugin.code_repository && {
-        href: plugin.code_repository,
-        icon: <GitHub />,
-        text: plugin.name,
-      },
+      value:
+        plugin?.code_repository && plugin.name
+          ? {
+              href: plugin.code_repository,
+              icon: <GitHub />,
+              text: plugin.name,
+            }
+          : '',
     },
   ];
 

@@ -103,12 +103,15 @@ function MetadataListItem({ inline, title, values }: MetadataListItemProps) {
                     newTab
                     onClick={() => {
                       const url = new URL(value.href);
-                      plausible('Links', {
-                        host: url.host,
-                        link: value.text,
-                        plugin: plugin.name,
-                        url: value.href,
-                      });
+
+                      if (plugin?.name) {
+                        plausible('Links', {
+                          host: url.host,
+                          link: value.text,
+                          plugin: plugin.name,
+                          url: value.href,
+                        });
+                      }
                     }}
                   >
                     {value.text}
