@@ -7,6 +7,11 @@
 .markdown {
   @apply prose text-black max-w-none;
 
+  // Styles for when the Markdown content is placeholder text.
+  &.placeholder {
+    @apply text-napari-dark-gray;
+  }
+
   font-size: calculate-rem(17px);
 
   code {

@@ -28,3 +28,6 @@ export const DEFAULT_REPO_DATA: PluginRepoData = {
   issuesAndPRs: 0,
   stars: 0,
 };
+
+export const EMPTY_BODY_TEXT =
+  'The developer has not yet provided a napari-hub specific description.';

@@ -10,6 +10,7 @@ import { Markdown } from '@/components/common/Markdown';
 import { Media, MediaFragment } from '@/components/common/media';
 import { PageMetadata } from '@/components/common/PageMetadata';
 import { SkeletonLoader } from '@/components/common/SkeletonLoader';
+import { EMPTY_BODY_TEXT } from '@/constants/plugin';
 import { useLoadingState } from '@/context/loading';
 import { usePluginState } from '@/context/plugin';
 import { useIsPreview, usePlausible } from '@/hooks';
@@ -41,7 +42,12 @@ function PluginCenterColumn() {
       <SkeletonLoader
         className="h-12"
         render={() => (
-          <h1 className="font-bold text-4xl">
+          <h1
+            className={clsx(
+              'font-bold text-4xl',
+              !plugin?.name && 'text-napari-dark-gray',
+            )}
+          >
             {plugin?.name ?? 'Plugin name'}
           </h1>
         )}
@@ -50,7 +56,12 @@ function PluginCenterColumn() {
       <SkeletonLoader
         className="h-6 my-6"
         render={() => (
-          <h2 className="font-semibold my-6 text-lg">
+          <h2
+            className={clsx(
+              'font-semibold my-6 text-lg',
+              !plugin?.summary && '!text-napari-dark-gray',
+            )}
+          >
             {plugin?.summary ?? 'Brief description'}
           </h2>
         )}
@@ -110,8 +121,15 @@ function PluginCenterColumn() {
       <SkeletonLoader
         className="h-[600px] mb-10"
         render={() => (
-          <Markdown className={clsx('mb-10')} disableHeader>
-            {plugin?.description ?? ''}
+          <Markdown
+            className={clsx('mb-10')}
+            disableHeader
+            placeholder={
+              !plugin?.description ||
+              plugin.description.includes(EMPTY_BODY_TEXT)
+            }
+          >
+            {plugin?.description ?? EMPTY_BODY_TEXT}
           </Markdown>
         )}
       />
