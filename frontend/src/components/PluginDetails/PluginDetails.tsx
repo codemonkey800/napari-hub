@@ -29,6 +29,7 @@ function PluginLeftColumn() {
 
 function PluginCenterColumn() {
   const { plugin } = usePluginState();
+  const isPreview = !!process.env.PREVIEW;
 
   return (
     <article
@@ -46,6 +47,7 @@ function PluginCenterColumn() {
             className={clsx(
               'font-bold text-4xl',
               !plugin?.name && 'text-napari-dark-gray',
+              isPreview && 'bg-napari-preview-orange-overlay',
             )}
           >
             {plugin?.name ?? 'Plugin name'}
@@ -60,6 +62,7 @@ function PluginCenterColumn() {
             className={clsx(
               'font-semibold my-6 text-lg',
               !plugin?.summary && '!text-napari-dark-gray',
+              isPreview && 'bg-napari-preview-orange-overlay',
             )}
           >
             {plugin?.summary ?? 'Brief description'}
@@ -122,7 +125,10 @@ function PluginCenterColumn() {
         className="h-[600px] mb-10"
         render={() => (
           <Markdown
-            className={clsx('mb-10')}
+            className={clsx(
+              'mb-10',
+              isPreview && 'bg-napari-preview-orange-overlay',
+            )}
             disableHeader
             placeholder={
               !plugin?.description ||
