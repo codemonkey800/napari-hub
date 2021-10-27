@@ -63,6 +63,7 @@ interface CommonProps {
 }
 
 interface PluginMetadataBaseProps extends CommonProps {
+  divider: ReactNode;
   inline?: boolean;
 }
 
@@ -71,9 +72,12 @@ interface PluginMetadataBaseProps extends CommonProps {
  * rendering the divider for vertical layouts and rendering headers / values
  * inline for smaller screens.
  */
-function PluginMetadataBase({ className, inline }: PluginMetadataBaseProps) {
+function PluginMetadataBase({
+  className,
+  divider,
+  inline,
+}: PluginMetadataBaseProps) {
   const metadata = usePluginMetadata();
-  const divider = <Divider className="my-6" />;
 
   function renderSingleItemList(title: string, value: string) {
     return (
@@ -174,7 +178,7 @@ function PluginMetadataBase({ className, inline }: PluginMetadataBaseProps) {
     >
       <div className="space-y-6">{projectMetadata}</div>
 
-      {!inline && divider}
+      {divider}
 
       <SkeletonLoader
         className={clsx(
@@ -185,7 +189,7 @@ function PluginMetadataBase({ className, inline }: PluginMetadataBaseProps) {
         render={() => <PluginGithubData />}
       />
 
-      {!inline && divider}
+      {divider}
 
       <div className="space-y-6">{requirementMetadata}</div>
     </div>

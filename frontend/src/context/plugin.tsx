@@ -151,7 +151,7 @@ export function usePluginMetadata() {
     },
 
     operatingSystems: {
-      name: 'Operating systems',
+      name: 'Operating system',
       values:
         plugin?.operating_system && isArray(plugin.operating_system)
           ? plugin.operating_system

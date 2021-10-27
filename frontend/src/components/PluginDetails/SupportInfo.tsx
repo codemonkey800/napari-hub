@@ -10,14 +10,13 @@ import {
   ProjectSupport,
   Twitter,
 } from '@/components/common/icons';
-import { Link } from '@/components/common/Link';
 import { Media } from '@/components/common/media';
 import {
   MetadataList,
   MetadataListLinkItem,
   MetadataListTextItem,
 } from '@/components/MetadataList';
-import { usePluginMetadata, usePluginState } from '@/context/plugin';
+import { usePluginMetadata } from '@/context/plugin';
 
 import styles from './SupportInfo.module.scss';
 
@@ -62,7 +61,7 @@ interface SupportInfoBaseProps extends CommonProps {
   inline?: boolean;
 }
 
-export function SupportInfoBase({ className }: SupportInfoBaseProps) {
+export function SupportInfoBase({ className, inline }: SupportInfoBaseProps) {
   const metadata = usePluginMetadata();
 
   const learnMoreItems: MetadataLinkItem[] = [];
@@ -108,18 +107,24 @@ export function SupportInfoBase({ className }: SupportInfoBaseProps) {
 
   return (
     <div
-      className={clsx('grid grid-cols-3 text-black bg-gray-100 p-5', className)}
+      className={clsx(
+        'text-black bg-gray-100 p-5',
+        'grid',
+        inline ? 'grid-cols-1' : 'grid-cols-3',
+        className,
+      )}
     >
       <MetadataList
         title={metadata.authors.name}
         empty={isEmpty(metadata.authors.values)}
+        inline={inline}
       >
         {metadata.authors.values.map((author) => (
           <MetadataListTextItem key={author}>{author}</MetadataListTextItem>
         ))}
       </MetadataList>
 
-      <MetadataList title="Learn more">
+      <MetadataList title="Learn more" inline={inline}>
         {learnMoreItems.map(({ text, ...linkProps }) => (
           <MetadataListLinkItem key={linkProps.href} {...linkProps}>
             {text}
@@ -130,6 +135,7 @@ export function SupportInfoBase({ className }: SupportInfoBaseProps) {
       <MetadataList
         title={metadata.sourceCode.name}
         empty={!metadata.sourceCode.href}
+        inline={inline}
       >
         {metadata.sourceCode.href && (
           <MetadataListLinkItem

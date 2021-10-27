@@ -1,0 +1,13 @@
+.list {
+  &.inline {
+    @apply space-x-1;
+
+    li {
+      @apply inline;
+
+      &:not(:last-child)::after {
+        content: ', ';
+      }
+    }
+  }
+}

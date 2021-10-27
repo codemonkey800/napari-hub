@@ -4,6 +4,8 @@ import { ReactNode } from 'react';
 
 import { MetadataStatus } from '@/components/MetadataStatus';
 
+import styles from './MetadataList.module.scss';
+
 interface Props {
   children: ReactNode;
   title: string;
@@ -43,8 +45,14 @@ export function MetadataList({
   }
 
   return (
-    <div className="text-sm space-y-2">
-      <div className={clsx(empty && 'bg-napari-preview-orange-overlay')}>
+    <div className="text-sm">
+      <div
+        className={clsx(
+          empty && 'bg-napari-preview-orange-overlay',
+          inline && 'space-x-2',
+          'space-y-2',
+        )}
+      >
         <h4
           className={clsx(
             // Font
@@ -57,9 +65,10 @@ export function MetadataList({
 
         <ul
           className={clsx(
+            styles.list,
             'list-none text-sm leading-normal',
             compact ? 'space-y-2' : 'space-y-5',
-            inline && 'inline',
+            inline && ['inline', styles.inline],
           )}
         >
           {empty ? renderEmptyList() : children}
