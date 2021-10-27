@@ -74,6 +74,7 @@
     "remark-remove-comments": "^0.2.0",
     "remark-slug": "^6.0.0",
     "sitemap": "^7.0.0",
+    "slugify": "^1.6.1",
     "string-similarity": "^4.0.4",
     "unified": "^9.2.1",
     "use-debounce": "^7.0.0",

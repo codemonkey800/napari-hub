@@ -1,4 +1,6 @@
 import clsx from 'clsx';
+import { isEmpty } from 'lodash';
+import { ReactNode } from 'react';
 
 import {
   GitHub,
@@ -8,11 +10,15 @@ import {
   ProjectSupport,
   Twitter,
 } from '@/components/common/icons';
+import { Link } from '@/components/common/Link';
 import { Media } from '@/components/common/media';
-import { usePluginState } from '@/context/plugin';
+import {
+  MetadataList,
+  MetadataListLinkItem,
+  MetadataListTextItem,
+} from '@/components/MetadataList';
+import { usePluginMetadata, usePluginState } from '@/context/plugin';
 
-import { MetadataList } from './MetadataList';
-import { MetadataItem, MetadataItemLink } from './PluginDetails.types';
 import styles from './SupportInfo.module.scss';
 
 /**
@@ -42,100 +48,100 @@ interface CommonProps {
   className?: string;
 }
 
-interface SupportInfoBaseProps extends CommonProps {
-  /**
-   * Render the support info metadata list horizontally.
-   */
-  horizontal?: boolean;
+interface MetadataLinkItem {
+  text: string;
+  href: string;
+  icon?: ReactNode;
+  missingIcon?: ReactNode;
+}
 
+interface SupportInfoBaseProps extends CommonProps {
   /**
    * Render the support info metadata list items inline.
    */
   inline?: boolean;
 }
 
-export function SupportInfoBase({
-  className,
-  horizontal,
-  inline,
-}: SupportInfoBaseProps) {
-  const { plugin } = usePluginState();
+export function SupportInfoBase({ className }: SupportInfoBaseProps) {
+  const metadata = usePluginMetadata();
 
-  const items: MetadataItem[] = [
+  const learnMoreItems: MetadataLinkItem[] = [];
+
+  if (metadata.projectSite.href) {
+    learnMoreItems.push({
+      text: metadata.projectSite.name,
+      href: metadata.projectSite.href,
+      icon: <ProjectSite />,
+    });
+  }
+
+  learnMoreItems.push(
     {
-      title: 'Authors',
-      value:
-        plugin?.authors
-          ?.map((author) => author.name)
-          .filter((name): name is string => !!name) ?? [],
-    },
-
-    {
-      title: 'Learn more',
-      value: ([] as MetadataItemLink[]).concat(
-        plugin?.project_site
-          ? {
-              href: plugin.project_site,
-              icon: <ProjectSite />,
-              text: 'Project site',
-            }
-          : [],
-
-        {
-          href: plugin?.documentation ?? '',
-          icon: <ProjectDocumentation />,
-          missingIcon: (
-            <ProjectDocumentation className={styles.missingDocumentation} />
-          ),
-          text: 'Documentation',
-        },
-        {
-          href: plugin?.support ?? '',
-          icon: <ProjectSupport />,
-          missingIcon: (
-            <ProjectSupport className={styles.missingProjectSupport} />
-          ),
-          text: 'Support',
-        },
-        {
-          href: plugin?.report_issues ?? '',
-          icon: <ProjectIssues />,
-          missingIcon: (
-            <ProjectIssues className={styles.missingProjectIssues} />
-          ),
-          text: 'Report issues',
-        },
-
-        plugin?.twitter
-          ? {
-              href: plugin.twitter,
-              icon: <Twitter />,
-              text: formatTwitter(plugin.twitter),
-            }
-          : [],
+      text: metadata.documentationSite.name,
+      href: metadata.documentationSite.href,
+      icon: <ProjectDocumentation />,
+      missingIcon: (
+        <ProjectDocumentation className={styles.missingDocumentation} />
       ),
     },
-
     {
-      title: 'Source code',
-      value:
-        plugin?.code_repository && plugin.name
-          ? {
-              href: plugin.code_repository,
-              icon: <GitHub />,
-              text: plugin.name,
-            }
-          : '',
+      text: metadata.supportSite.name,
+      href: metadata.supportSite.href,
+      icon: <ProjectSupport />,
+      missingIcon: <ProjectSupport className={styles.missingProjectSupport} />,
     },
-  ];
+    {
+      text: metadata.reportIssues.name,
+      href: metadata.reportIssues.href,
+      icon: <ProjectIssues />,
+      missingIcon: <ProjectIssues className={styles.missingProjectIssues} />,
+    },
+  );
+
+  if (metadata.twitter.href) {
+    learnMoreItems.push({
+      text: formatTwitter(metadata.twitter.href),
+      href: metadata.twitter.href,
+      icon: <Twitter />,
+    });
+  }
 
   return (
-    <MetadataList
-      className={clsx('text-black bg-gray-100 p-5', className)}
-      horizontal={horizontal}
-      inline={inline}
-      items={items}
-    />
+    <div
+      className={clsx('grid grid-cols-3 text-black bg-gray-100 p-5', className)}
+    >
+      <MetadataList
+        title={metadata.authors.name}
+        empty={isEmpty(metadata.authors.values)}
+      >
+        {metadata.authors.values.map((author) => (
+          <MetadataListTextItem key={author}>{author}</MetadataListTextItem>
+        ))}
+      </MetadataList>
+
+      <MetadataList title="Learn more">
+        {learnMoreItems.map(({ text, ...linkProps }) => (
+          <MetadataListLinkItem key={linkProps.href} {...linkProps}>
+            {text}
+          </MetadataListLinkItem>
+        ))}
+      </MetadataList>
+
+      <MetadataList
+        title={metadata.sourceCode.name}
+        empty={!metadata.sourceCode.href}
+      >
+        {metadata.sourceCode.href && (
+          <MetadataListLinkItem
+            href={metadata.sourceCode.href}
+            icon={<GitHub />}
+            missingIcon={<GitHub className={styles.missingGithub} />}
+          >
+            {metadata.name.value}
+          </MetadataListLinkItem>
+        )}
+      </MetadataList>
+    </div>
   );
 }
 
@@ -148,7 +154,7 @@ export function SupportInfo(props: CommonProps) {
   return (
     <>
       <Media greaterThanOrEqual="xl">
-        <SupportInfoBase {...props} horizontal />
+        <SupportInfoBase {...props} />
       </Media>
 
       <Media lessThan="xl">

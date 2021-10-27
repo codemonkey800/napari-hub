@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import slugify from 'slugify';
 
 /**
  * Utility to transform a date into a more readable format.  Useful for ISO and
@@ -27,4 +28,21 @@ export function formatOperatingSystem(operatingSystem: string): string {
   const name = parts[parts.length - 1];
 
   return name.replace('OS Independent', 'All');
+}
+
+/**
+ * Wrapper over `sluggify()` with automatic lower-casing and trimming of strings.
+ *
+ * @param text The text to slugify.
+ * @returns The slugified text.
+ */
+export function slug(text: string): string {
+  // Return URL slug: https://github.com/simov/slugify
+  return slugify(text, {
+    // Return lowercase text.
+    lower: true,
+
+    // Trim leading and trailing space characters.
+    trim: true,
+  });
 }
